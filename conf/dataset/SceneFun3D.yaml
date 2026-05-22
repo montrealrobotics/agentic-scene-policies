@@ -1,0 +1,15 @@
+_target_: rgbd_dataset.rgbd_dataset.datasets.SceneFun3D.SceneFun3D
+dataset_name: "scenefun3d"
+base_path: ${data_dir}
+scene: "420693"
+width: 1440
+height: 1920
+resized_width: -1
+resized_height: -1
+sequence_start: 0
+sequence_end: -1
+sequence_stride: 20
+relative_pose: False
+depth_scale: 1000
+point_cloud: False
+depth_trunc: 100.0

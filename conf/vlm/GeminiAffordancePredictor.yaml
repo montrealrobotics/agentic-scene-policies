@@ -1,0 +1,34 @@
+defaults:
+  - base_affordance_predictor
+
+_target_: concept_graphs.vlm.GeminiAffordancePredictor.GeminiAffordancePredictor
+model: gemini-2.5-pro
+thinking_budget: 1024
+system_prompt: |
+  You will be presented with different views of the same object and given the name of the object that you should focus on. Based on this information:
+  1. Identify localized parts of the object where a human hand or foot might interact (affordance tags) that can easily correspond to the affordance types described below. Think of main (primary) affordances only that a human would use to interact with the object.
+  2. For each part, determine which (if any) of the following 9 interaction skills apply (affordance types):
+      - ROTATE: A knob or dial that can be rotated by hand to perform a function, such as adjusting a setting.
+      - KEY PRESS: Buttons or keys that can be pressed to trigger an effect, such as on a remote control or microwave.
+      - TIP PUSH: A flat or small surface designed to be pushed with the fingertip, like a light switch or elevator button.
+      - HOOK PULL: A handle or grip that can be pulled by hooking fingers around it, such as a fridge or cabinet door handle.
+      - PINCH PULL: A small grip or tab that can be pulled using a pinch motion, like a drawer knob or zip tab.
+      - HOOK TURN: A handle that can be turned by hooking fingers around it, like a door lever or faucet handle.
+      - FOOT PUSH: A surface designed to be pushed using the foot, such as a trash can pedal.
+      - PLUG IN: A socket or port where a human can insert a plug or connector (e.g., for power or data).
+      - UNPLUG: A plug or connector that can be removed by a human from a socket or port.
+  3. Identify how many instances there are of the affordance and give a number.
+  You can give multiple affordances in a list if you think they are primary. If no suitable affordances exist that match the affordance types or if the object is unclear, return empty arrays for both fields.
+affordance_types: # Make sure this jives with system_prompt
+  - "ROTATE"
+  - "KEY PRESS"
+  - "TIP PUSH"
+  - "HOOK PULL"
+  - "PINCH PULL"
+  - "HOOK TURN"
+  - "FOOT PUSH"
+  - "PLUG IN"
+  - "UNPLUG"
+user_query: "For this object, think step by step about the primary affordances on it, then give the corresponding types for the affordances."
+bg_mask_mode: "no_mask"
+max_images: 1

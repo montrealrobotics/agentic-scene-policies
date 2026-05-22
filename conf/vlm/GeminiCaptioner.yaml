@@ -1,0 +1,4 @@
+defaults:
+  - base_captioner
+_target_: concept_graphs.vlm.GeminiCaptioner.GeminiCaptioner
+model: gemini-2.5-pro

@@ -1,0 +1,5 @@
+_target_: ???
+system_prompt: ???
+max_images: 1
+bg_mask_mode: "no_mask"
+vis: True

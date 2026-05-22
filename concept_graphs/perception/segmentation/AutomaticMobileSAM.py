@@ -1,0 +1,89 @@
+from typing import Tuple, List
+import torch
+import numpy as np
+
+import warnings
+
+# Filter out user warnings from a specific package
+warnings.filterwarnings("ignore", category=UserWarning, module="mobile_sam")
+
+from mobile_sam import sam_model_registry
+from mobile_sam import SamAutomaticMaskGenerator, SamPredictor
+
+from .SegmentationModel import SegmentationModel
+
+
+def box_xywh_to_xyxy(box_xywh: torch.Tensor) -> torch.Tensor:
+    box_xyxy = torch.clone(box_xywh)
+    box_xyxy[:, 2] = box_xyxy[:, 0] + box_xyxy[:, 2]
+    box_xyxy[:, 3] = box_xyxy[:, 1] + box_xyxy[:, 3]
+    box_xyxy = box_xyxy.int()
+    return box_xyxy
+
+
+class AutomaticMobileSAM(SegmentationModel):
+    def __init__(
+        self,
+        mask_generator: SamAutomaticMaskGenerator,
+        model_type: str,
+        checkpoint_path: str,
+        device: str = "cuda",
+    ):
+        """Mobile-SAM model with grid-based prompting."""
+        self.model_type = model_type
+        self.checkpoint_path = checkpoint_path
+        self.device = device
+
+        mobile_sam = sam_model_registry[self.model_type](
+            checkpoint=self.checkpoint_path
+        )
+        mobile_sam.to(device=self.device)
+        mobile_sam.eval()
+
+        self.predictor = mask_generator(model=mobile_sam)
+        self.aff_predictor = SamPredictor(mobile_sam)
+
+    def __call__(
+        self, img: np.ndarray
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        anns = self.predictor.generate(img)
+        masks, bbox, score = [], [], []
+
+        for ann in anns:
+            masks.append(torch.from_numpy(ann["segmentation"]))
+            bbox.append(torch.tensor(ann["bbox"]))
+            score.append(ann["predicted_iou"])
+
+        masks, bbox, score = torch.stack(masks), torch.stack(bbox), torch.tensor(score)
+        bbox = box_xywh_to_xyxy(bbox)
+
+        return masks, bbox, score
+
+    def segment_affordances(
+        self,
+        img: np.ndarray,
+        points: List[Tuple[int, int]] = None,
+        box: Tuple[int, int, int, int] = None,
+    ) -> Tuple[np.ndarray, np.ndarray]:
+
+        self.aff_predictor.set_image(img)
+
+        if points is None and box is None:
+            raise ValueError("Either points or box must be provided.")
+
+        point_coords = None
+        point_labels = None
+        if points is not None:
+            point_coords = np.array(points)
+            point_labels = np.ones(len(points))
+
+        if box is not None:
+            box = np.array(box)
+
+        masks, scores, _ = self.aff_predictor.predict(
+            point_coords=point_coords,
+            point_labels=point_labels,
+            box=box,
+            multimask_output=False,  # Only return the best mask for now
+        )
+        return masks, scores

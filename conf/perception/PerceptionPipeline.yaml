@@ -1,0 +1,12 @@
+_target_: concept_graphs.perception.PerceptionPipeline.PerceptionPipeline
+segmentation_model: ???
+segment_scoring_method: area
+ft_extractor: ???
+depth_trunc: ${dataset.depth_trunc}
+inflate_bbox_px: 10
+mask_subtract_contained: true
+min_mask_area_px: 100
+min_points_pcd: 100
+crop_bg_color: null # null: keep bg, 0: black, 255: white. Background color for feature extraction
+debug_images: ${debug}
+debug_dir: ${output_dir}/debug

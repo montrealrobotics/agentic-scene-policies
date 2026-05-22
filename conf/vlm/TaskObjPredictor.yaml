@@ -1,0 +1,9 @@
+_target_: concept_graphs.vlm.TaskObjPredictor.TaskObjPredictor
+system_prompt: |
+  You will be given a task description, based on which you will need to identify the main object which needs to be manipulated for that task.
+  For example, for the task "Adjust the armchair seat located near the two doors", the main object is "armchair".
+  For "Control the temperature using the radiator dial next to the french door" the main object is "radiator dial".
+model: gemini-2.5-flash
+thinking_budget: -1
+top_k: 3
+map_obj_ft: visual

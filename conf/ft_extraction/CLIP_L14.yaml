@@ -1,0 +1,5 @@
+_target_: concept_graphs.perception.ft_extraction.CLIP.CLIP
+model_name: ViT-L-14
+pretrained: laion2b_s32b_b82k
+cache_dir: ${cache_dir}
+device: ${device}

@@ -1,0 +1,10 @@
+_target_: concept_graphs.perception.segmentation.YoloSAM2.YoloSAM2
+yolo_checkpoint_path: ${cache_dir}/yolov8s-world.pt
+yolo_class_path: ${cache_dir}/scannet200_classes.txt
+yolo_device: ${device}
+sam_config_file: segmentation/sam2.1/sam2.1_hiera_l.yaml
+sam_checkpoint_path: ${cache_dir}/sam2.1_hiera_large.pt
+sam_prompting: bbox
+sam_device: ${device}
+debug_images: ${debug}
+debug_dir: ${output_dir}/debug

@@ -1,0 +1,31 @@
+# @package _global_
+defaults:
+  - CG
+  - override /vlm@vlm_affordances: GeminiAffordancePredictorRobot
+  - override /vlm@vlm_interactions: GeminiPointerRobot
+  - override /vlm@vlm_clf: GeminiClassifier
+  - _self_
+
+name: "asp"
+
+perception:
+  segment_scoring_method: area
+  crop_bg_color: 255
+  inflate_bbox_px: 50
+  depth_trunc: 0.85
+
+# Global map configuration
+sim_thresh: 0.5
+overlap_eps: 0.04
+voxel_size: 0.001
+denoising_eps: 0.02
+max_points_pcd: 8000
+final_min_segments: 1
+aff_iou_thresh: 0.15
+filter_large_objects: true
+
+mapping:
+  n_min_segments: 1
+  filter_min_every: 1
+  grace_min_segments: 3
+  self_merge_every: -1

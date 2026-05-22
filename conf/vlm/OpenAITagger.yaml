@@ -1,0 +1,5 @@
+defaults:
+  - base_tagger
+
+_target_: concept_graphs.vlm.OpenAICaptioner.OpenAICaptioner
+model: gpt-4.1-mini

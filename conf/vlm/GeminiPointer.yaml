@@ -1,0 +1,13 @@
+defaults:
+  - base_pointer
+
+_target_: concept_graphs.vlm.GeminiPointer.GeminiPointer
+system_prompt: |
+  You are a helpful assistant that provides bounding boxes on the affordances of an object in an image that will be provided. 
+  You will focus only only on the affordance and object mentioned in the user prompt. 
+  Provide a list of multiple bounding boxes if there are multiple instances of the affordance mentioned. 
+  If you think the mentioned affordance is not present in the image, provide an empty list.
+model: gemini-2.5-pro
+thinking_budget: 1024
+debug: false
+debug_dir: ${output_dir}/debug

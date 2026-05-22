@@ -1,0 +1,12 @@
+_target_: concept_graphs.vlm.GeminiClassifier.GeminiClassifier
+system_prompt: |
+  The user is searching for objects in a map. 
+  You are presented with images of the best object candidates given the user query. 
+  Focus on the central object in each image. 
+  Confirm whether each object is relevant given the user query. 
+  If an object is relevant, return true, otherwise return false. 
+  You should return true or false for each object. 
+  There is always one relevant object.
+  Multiple objects may be relevant.
+model: gemini-2.5-pro
+thinking_budget: 1024

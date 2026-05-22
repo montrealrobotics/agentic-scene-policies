@@ -1,0 +1,30 @@
+# @package _global_
+defaults:
+  - base
+  - /ft_extraction: CLIP_H14
+  - override /segmentation: YoloMobileSAM
+  - _self_
+
+name: cg-detector
+sim_thresh: 0.90
+overlap_eps: 0.025
+voxel_size: 0.025
+denoising_eps: 0.1
+max_points_pcd: 8000
+final_min_segments: 5
+
+mapping:
+  object_factory:
+    _target_: concept_graphs.mapping.Object.RunningAverageObjectFactory
+    semantic_mode: mean
+  n_min_segments: 3
+  grace_min_segments: 30
+  filter_min_every: 10
+  self_merge_every: 5
+  downsample_every: 5
+  denoise_every: -1
+
+# No background filtering
+perception:
+  segment_scoring_method: area
+  crop_bg_color: null

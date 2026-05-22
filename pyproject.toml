@@ -1,0 +1,28 @@
+[project]
+name = "agentic-scene-policies"
+version = "0.0.0"
+dependencies = [
+    "torch",
+    "torchvision",
+    "open3d",
+    "hydra-core",
+    "mobile_sam@git+https://github.com/ChaoningZhang/MobileSAM.git",
+    "open_clip_torch",
+    "ultralytics",
+    "openai",
+    "google-genai",
+    "numpy<=1.26.4",
+    "pillow",
+    "langchain",
+    "langchain-openai",
+    "langchain-google-genai",
+    "viser",
+]
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = ["black"]
+
+
+[tool.setuptools]
+py-modules = []

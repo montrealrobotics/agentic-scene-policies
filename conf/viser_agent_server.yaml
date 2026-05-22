@@ -1,0 +1,15 @@
+defaults:
+  - paths: paths
+  - algo: ASP
+  - robot_api: OfflineRobotAPI
+  - dataset: dummy # Optional, only for OfflineRobotAPI
+  - agent_llm: Gemini
+  - _self_
+
+scene_pcd_voxel_size: 0.003 # for collision checking. can be coarser than voxel_size
+use_map_pickle: false
+map_path: ${output_dir}/latest_map
+center_origin: false # For left/right reasoning
+device: cuda
+debug: false
+seed: 42

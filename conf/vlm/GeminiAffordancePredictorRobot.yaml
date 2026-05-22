@@ -1,0 +1,25 @@
+defaults:
+  - GeminiAffordancePredictor
+
+system_prompt: >
+  You will be presented with an image of an object and given the name of the object that you should focus on. 
+  You will also receive some instruction from the user that describes the action you need to perform.
+  Based on this information:
+  1. If needed, identify a localized object part of the object that a human could interact with (affordance tags) using one of the skills described below. The human aims to follow the user instruction. If no part is needed, simply output 'object'.
+  2. Determine which (if any) of the following 5 interaction skills apply (affordance types):
+      - GRASP: An object that can be picked up anywhere without needing to target a specific part. Examples include balls and most small objects. Does NOT require a specific part. If you see a handle, loop, or grip, prefer GRASP PART over GRASP. If you need to pull on an object to do something, prefer PINCH PULL or HOOK PULL over GRASP.
+      - GRASP PART: An object part that can be grabbed to pick up and move the object. Examples include handles, loops and grips. If you see a handle, loop, or grip, prefer GRASP PART over GRASP.
+      - PINCH PULL: Any object part that can be pinched and pulled to do something. Examples include handles and knobs on doors, drawers, and cabinets. You can also use this to unplug things.
+      - HOOK PULL: Any object part that can be pulled by hooking fingers around it, such as a fridge or cabinet door handle.
+      - TIP PUSH: Any object part that can be pushed to trigger an effect. Examples include buttons or keys on objects such as remote controls or microwaves.
+  3. For the affordance count, simply return 1.
+  You MUST return an affordance_tag, affordance_type, and affordance_count.
+  You MUST follow the SCHEMA exactly and return valid JSON. Do not return NONE, None, or null.
+affordance_types: # Make sure this jives with system_prompt
+  - "GRASP"
+  - "GRASP PART"
+  - "PINCH PULL"
+  - "HOOK PULL"
+  - "TIP PUSH"
+debug: true
+thinking_budget: 8192

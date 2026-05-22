@@ -1,0 +1,35 @@
+defaults:
+  - dataset: ROS
+  - paths: paths
+  - _self_
+  - algo: CGDetector
+
+name: cg-detector
+sim_thresh: 0.7
+overlap_eps: 0.005
+voxel_size: 0.005
+denoising_eps: 0.02
+max_points_pcd: 8000
+final_min_segments: 2
+aff_iou_thresh: 0.15
+filter_large_objects: false
+
+device: cuda
+debug: false
+save_map: true
+seed: 123
+
+# Predict more attributes for objects
+caption: false
+tag: false
+affordances: false
+interactions: false
+
+dataloader:
+  _target_: torch.utils.data.DataLoader
+  batch_size: 1
+  shuffle: false
+  num_workers: 2
+  pin_memory: false
+  collate_fn:
+    _target_: rgbd_dataset.rgbd_dataset.dataloader.collate_fn_np_single_cb

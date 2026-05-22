@@ -1,0 +1,11 @@
+# @package _global_
+defaults:
+  - /perception: PerceptionPipeline
+  - /mapping: ObjectMap
+  - /segmentation: ???
+  - /vlm@vlm_caption: GeminiCaptioner
+  - /vlm@vlm_tag: GeminiTagger
+  - /vlm@vlm_affordances: GeminiAffordancePredictorTask
+  - /vlm@vlm_interactions: GeminiPointer
+  - /vlm@vlm_clf: GeminiClassifier
+  - _self_

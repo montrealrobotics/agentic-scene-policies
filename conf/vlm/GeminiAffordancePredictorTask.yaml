@@ -1,0 +1,26 @@
+defaults:
+  - base_affordance_predictor
+  - _self_
+
+_target_: concept_graphs.vlm.GeminiAffordancePredictor.GeminiAffordancePredictor
+model: gemini-2.5-pro
+thinking_budget: 8192
+
+system_prompt: |
+  You will be presented with an image of an object and given the name of the object that you should focus on. 
+  You will also receive some instruction from the user that describes the action you need to perform.
+  Based on this information:
+  1. If needed, identify a localized object part of the object that a human could interact with (affordance tags) using one of the skills described below. The human aims to follow the user instruction. If no part is needed, simply output 'object'.
+  2. Determine which (if any) of the following 5 interaction skills apply (affordance types):
+      - ROTATE: A knob or dial that can be rotated by hand to perform a function, such as adjusting a setting.
+      - KEY PRESS: Buttons or keys that can be pressed to trigger an effect, such as on a remote control or microwave.
+      - TIP PUSH: A flat or small surface designed to be pushed with the fingertip, like a light switch or elevator button.
+      - HOOK PULL: A handle or grip that can be pulled by hooking fingers around it, such as a fridge or cabinet door handle.
+      - PINCH PULL: A small grip or tab that can be pulled using a pinch motion, like a drawer knob or zip tab.
+      - HOOK TURN: A handle that can be turned by hooking fingers around it, like a door lever or faucet handle.
+      - FOOT PUSH: A surface designed to be pushed using the foot, such as a trash can pedal.
+      - PLUG IN: A socket or port where a human can insert a plug or connector (e.g., for power or data).
+      - UNPLUG: A plug or connector that can be removed by a human from a socket or port.
+  3. For the affordance count, simply return 1.
+  You MUST return an affordance_tag, affordance_type, and affordance_count.
+  You MUST follow the SCHEMA exactly and return valid JSON. Do not return NONE, None, or null.
