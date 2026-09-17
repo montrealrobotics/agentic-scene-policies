@@ -15,6 +15,7 @@ Clone repository and submodules.
 ```bash
 git clone --recurse-submodules git@github.com:montrealrobotics/agentic-scene-policies.git
 ```
+If you already cloned without `--recurse-submodules`, run `git submodule update --init --recursive` from the repository root.
 
 Install dependencies. Preferably in a virtual environment.
 ```bash
@@ -39,13 +40,15 @@ output_dir: ??? # Where to save outputs
 Alternatively, you can create your own `conf/paths/my_paths.yaml` and append `paths=my_paths` to all commands.
 
 ## Model Checkpoints
-Download the following to ```cache_dir```, as defined in your config.
+Create ```cache_dir``` and download the following to it, as defined in your config.
  * [mobile_sam.pt](https://github.com/ultralytics/assets/releases/download/v8.2.0/mobile_sam.pt)
  * [sam2.1_hiera_large.pt](https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_large.pt)
  * [yolov8s-world.pt](https://github.com/ultralytics/assets/releases/download/v8.2.0/yolov8s-world.pt)
  * [scannet200_classes.txt](https://raw.githubusercontent.com/concept-graphs/concept-graphs/66175d63f466d264edce9f1fb6987c5ba1dcac0e/conceptgraph/scannet200_classes.txt)
 
- **Note 1**: The ASP experiments only used Mobile SAM. Yolo was not used for the ASP experiments but can be useful to process larger scenes more quickly using `algo=CGDector`.
+**Note 0**: The CLIP checkpoints are downloaded automatically to `cache_dir` on the first run. `CLIP_H14`, the default, is about 4 GB.
+
+**Note 1**: The ASP experiments only used Mobile SAM. Yolo was not used for the ASP experiments but can be useful to process larger scenes more quickly using `algo=CGDetector`.
 
 **Note 2**: If you wish to use `YoloSAM2` for segmentation, also install SAM2 from their repository found [here](https://github.com/facebookresearch/sam2).
 
@@ -88,7 +91,7 @@ Then open `http://localhost:8080/` in a browser for viser.
 `viser_agent_server.py` will default to `output_dir/latest_map` which is created by `main.py`. You can alternatively specify `map_path=$MAP_PATH`. 
 
 ## Decoupled Map & Query (Replica)
-For you can also map multiple RGB-D frames from larger scenes by configuring the right dataset. For example
+You can also map multiple RGB-D frames from larger scenes by configuring the right dataset. For example
 ```bash
 python3 main.py algo=CGDetector dataset=Replica_low dataset.scene=room0 sim_thresh=0.89 
 ```
@@ -142,6 +145,7 @@ The above list only includes the most common arguments. If you understand [Hydra
 The output consists of the following files and directories:
 * `config.yaml`: The full config of this map.
 * `map.pkl`: A pickle object containing the full map.
+* `stats.json`: Mapping runtime statistics (fps, mapping time, number of objects and frames).
 * `clip_features.npy`: The object CLIP features as an `(n_objects, n_dims)` array.
 * `point_cloud.pcd`: The complete point cloud.
 * `segments_anno.json`: The object annotations following the Scannet++ format. This includes the point indices in the main point cloud, the caption and the tag of every object. Look at [this method](https://github.com/sachaMorin/concept-nodes/blob/791677da1f3de3e007fff0b4bb8f1478d2fe0c61/visualizer.py#L172) for an example of how to load object point clouds.

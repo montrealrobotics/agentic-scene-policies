@@ -1,4 +1,0 @@
-# @package _global_
-cache_dir: /home/sacha/Documents/concept-graphs/cache # Where to save model checkpoints and other assets
-data_dir: /data/asp # Where to look for datasets by default
-output_dir: /home/sacha/Documents/concept-graphs/outputs # Where to save outputs

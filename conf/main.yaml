@@ -1,8 +1,8 @@
 defaults:
-  - dataset: ROS
+  - dataset: ASP
   - paths: paths
   - _self_
-  - algo: CGDetector
+  - algo: ASP
 
 name: cg-detector
 sim_thresh: 0.7

@@ -166,3 +166,12 @@ cython_debug/
 #.idea/
 .vscode
 misc
+
+# Ultralytics writes these to the working directory
+weights/
+runs/
+datasets/
+
+# Local paths configs (see conf/paths/paths.yaml)
+conf/paths/*
+!conf/paths/paths.yaml

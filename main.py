@@ -89,6 +89,14 @@ def main(cfg: DictConfig):
     log.info("Objects in final map: %d" % n_objects)
     log.info(f"fps: {fps:.2f}")
 
+    if n_objects == 0:
+        log.warning(
+            "The final map is empty. Nothing to annotate or save. "
+            f"Consider lowering final_min_segments (currently {cfg.final_min_segments}), "
+            "especially on short sequences."
+        )
+        return
+
     # NOTE: Utility to keep only certain objects in the map. Helps to iterate quickly. Delete before release.
     # main_map.keep_only_object_at_index(2)
     # main_map.keep_only_object_at_indices([0, 1, 2, 3, 4, 5, 6, 7, 8])
