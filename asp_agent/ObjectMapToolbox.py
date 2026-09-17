@@ -39,12 +39,10 @@ class ObjectMapToolbox:
         self.object_buffer = dict()
         self.held_object = None
 
-        # Use average of the scene point cloud as the origin for left/right reasoning
-        if center_origin:
-            all_points = np.vstack([np.asarray(obj.pcd.points) for obj in object_map])
-            self.origin = all_points.mean(axis=0)[:2]  # Only xy
-        else:
-            self.origin = np.array([0.0, 0.0])
+        # Use average of the scene point cloud as the origin for left/right
+        # reasoning. Computed in load_object_map, once a map is available.
+        self.center_origin = center_origin
+        self.origin = np.array([0.0, 0.0])
 
         # Viser
         self.viser_server = ViserServer()
@@ -60,6 +58,11 @@ class ObjectMapToolbox:
     def load_object_map(self, object_map):
         self.object_map = object_map
         self.object_map.to(self.device)
+
+        if self.center_origin and len(object_map):
+            all_points = np.vstack([np.asarray(obj.pcd.points) for obj in object_map])
+            self.origin = all_points.mean(axis=0)[:2]  # Only xy
+
         self.viser_server.update_object_map(object_map)
         self.reset()
 
