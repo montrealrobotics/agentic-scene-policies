@@ -406,9 +406,18 @@ class ObjectMapToolbox:
             self.affordance_predictor.annotate_map(scene_obj)
             self.affordance_pointer.annotate_map(scene_obj, skip_aff_types=["GRASP"])
 
+            affordances = scene_obj[0].affordance_instances
+            if len(affordances) == 0:
+                return ToolOutput(
+                    success=False,
+                    output=self.state,
+                    feedback_msg="ERROR! No affordance was grounded on this object. Try another object key, or rephrase the action.",
+                )
+
             obj_pcd = np.asarray(scene_obj[0].pcd.points)
-            aff_type = scene_obj[0].affordance_instances[0].type
-            aff_pcd = scene_obj[0].affordance_instances[0].mask_3d
+            first_aff = next(iter(affordances.values()))
+            aff_type = first_aff.type
+            aff_pcd = first_aff.mask_3d
 
             success, feedback_msg = self.robot_api.run_skill(aff_type, obj_pcd, aff_pcd)
 

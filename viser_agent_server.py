@@ -166,7 +166,10 @@ def main(cfg: DictConfig):
             else:
                 # Final answer
                 log.info("Final Agent Answer:")
-                log.info(response.content)
+                # Recent chat models return a list of content blocks rather than
+                # a plain string. .text concatenates the text blocks and drops
+                # provider metadata such as thought signatures.
+                log.info(response.text)
 
                 log.info(f"Displaying final viser annotations...")
                 toolbox.viser_server.clear_reasoning_annotations()

@@ -1,9 +1,7 @@
 defaults:
-  - base_affordance_predictor
+  - GeminiAffordancePredictor
   - _self_
 
-_target_: concept_graphs.vlm.GeminiAffordancePredictor.GeminiAffordancePredictor
-model: gemini-2.5-pro
 thinking_budget: 8192
 
 system_prompt: |
