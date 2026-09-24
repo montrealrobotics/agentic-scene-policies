@@ -1,10 +1,10 @@
-# Agentic Scene Policies (ASP)
+# [IROS 2026] Agentic Scene Policies (ASP)
 [**Project Page**](https://montrealrobotics.ca/agentic-scene-policies.github.io/) |
 [**ArXiv**](https://arxiv.org/abs/2509.19571)
 
 [Sacha Morin](https://sachamorin.github.io/), [Kumaraditya Gupta](https://www.kumaradityag.com/), [Mahtab Sandhu](https://scholar.google.com/citations?user=Gdv8B50AAAAJ&hl=en), [Charlie Gauthier](https://velythyl.github.io/), [Francesco Argenziano](https://www.linkedin.com/in/fra-arg/), [Kirsty Ellis](https://mila.quebec/en/directory/kirsty-ellis), [Liam Paull](http://liampaull.ca)
 
-Perception and agent code for the Agentic Scene Policies paper. 
+Perception and agent code for our IROS 2026 paper [Agentic Scene Policies](https://arxiv.org/abs/2509.19571). 
 
 <p align="left">
   <img src="https://montrealrobotics.ca/agentic-scene-policies.github.io/static/images/pipeline.svg" alt="ASP Pipeline" width="60%">
