@@ -7,7 +7,7 @@
 Perception and agent code for our IROS 2026 paper [Agentic Scene Policies](https://arxiv.org/abs/2509.19571). 
 
 <p align="left">
-  <img src="https://montrealrobotics.ca/agentic-scene-policies.github.io/static/images/pipeline.svg" alt="ASP Pipeline" width="60%">
+  <img src="https://sachamorin.github.io/images/asp.gif" alt="ASP Pipeline" width="60%">
 </p>
 
 # Install
