@@ -12,6 +12,7 @@ dependencies = [
     "openai",
     "google-genai",
     "numpy<=1.26.4",
+    "scipy",
     "pillow",
     "langchain",
     "langchain-openai",
